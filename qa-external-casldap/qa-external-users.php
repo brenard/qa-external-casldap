@@ -39,7 +39,7 @@
 	 Return : Array of user informations in QA format
 */
 	function get_ldap_user_infos($user) {
-		if (isset($_SESSION['UserLdapInfos'])) {
+		if (isset($_SESSION['UserLdapInfos']) && !isset($_REQUEST['ldap_refresh'])) {
 			return $_SESSION['UserLdapInfos'];
 		}
 		$infos=array(
