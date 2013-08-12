@@ -39,8 +39,8 @@
 	 Return : Array of user informations in QA format
 */
 	function get_ldap_user_infos($user) {
-		if (isset($_SESSION['UserLdapInfos']) && !isset($_REQUEST['ldap_refresh'])) {
-			return $_SESSION['UserLdapInfos'];
+		if (isset($_SESSION['UserLdapInfos'][$user]) && !isset($_REQUEST['ldap_refresh'])) {
+			return $_SESSION['UserLdapInfos'][$user];
 		}
 		$infos=array(
 			'userid'		=> $user,
@@ -82,7 +82,7 @@
 			error_log('Fail to get user infos from LDAP : '.$e->getMessage());
 		}
 		error_log("User $user infos : ".print_r($infos,true));
-		$_SESSION['UserLdapInfos']=$infos;
+		$_SESSION['UserLdapInfos'][$user]=$infos;
 		return $infos;
 	}
 
