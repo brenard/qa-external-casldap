@@ -249,8 +249,10 @@
 
 		$useridtopublic=array();
 		
-		foreach ($userids as $userid)
-			$useridtopublic[$userid]=$userid;
+		foreach ($userids as $userid) {
+			$infos=get_ldap_user_infos($userid);
+			$useridtopublic[$userid]=$infos['publicusername'];
+		}
 		
 		return $useridtopublic;
 
