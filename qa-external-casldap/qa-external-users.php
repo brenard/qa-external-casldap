@@ -57,7 +57,7 @@
 		try {
 			$con=ldap_connect(LDAP_SERVER);
 			$filter=sprintf(LDAP_USER_FILTER,$user);
-			$attrs=array(LDAP_MAIL_ATTR);
+			$attrs=array(LDAP_MAIL_ATTR,LDAP_PUBLIC_NAME_ATTR,LDAP_USERID_ATTR);
 			if (constant('LDAP_ALTERNATE_MAIL_ATTR') != '') {
 				$attrs[]=LDAP_ALTERNATE_MAIL_ATTR;
 			}
@@ -70,6 +70,12 @@
 				elseif (constant('LDAP_ALTERNATE_MAIL_ATTR') != '' && isset($uinfos[0][LDAP_ALTERNATE_MAIL_ATTR][0])) {
 					$infos['email']=$uinfos[0][LDAP_ALTERNATE_MAIL_ATTR][0];
 				}
+				if (isset($uinfos[0][LDAP_PUBLIC_NAME_ATTR][0])) {
+					$infos['publicusername']=$uinfos[0][LDAP_PUBLIC_NAME_ATTR][0];
+				}
+				if (isset($uinfos[0][LDAP_USERID_ATTR][0])) {
+					$infos['userid']=$uinfos[0][LDAP_USERID_ATTR][0];
+				}
 			}
 		} catch (Exception $e) {
 			error_log('Fail to get user infos from LDAP : '.$e->getMessage());
@@ -80,6 +86,26 @@
 	}
 
 
+	function get_ldap_userid_by_publicname($publicname) {
+		$userid=NULL;
+		try {
+			$con=ldap_connect(LDAP_SERVER);
+			$filter=sprintf(LDAP_USER_FILTER_BY_PUBLIC_NAME,$publicname);
+			$attrs=array(LDAP_USERID_ATTR);
+			$res=ldap_search($con,LDAP_USER_BASEDN,$filter,$attrs);
+			$uinfos=ldap_get_entries($con,$res);
+			if (isset($uinfos[0][LDAP_USERID_ATTR][0])) {
+				$userid=$uinfos[0][LDAP_USERID_ATTR][0];
+			}
+			else {
+				error_log('User '.$publicname.' does not have '.LDAP_USERID_ATTR.' attribute. Fail to get userid from LDAP.');
+			}
+		}
+		catch (Exception $e) {
+			error_log('Fail to get userid from LDAP : '.$e->getMessage());
+		}
+		return $userid;
+	}
 
 	function qa_get_mysql_user_column_type() {
 		return 'VARCHAR(32)';
@@ -198,7 +224,7 @@
 		$publictouserid=array();
 		
 		foreach ($publicusernames as $publicusername)
-			$publictouserid[$publicusername]=$publicusername;
+			$publictouserid[$publicusername]=get_ldap_userid_by_publicname($publicusername);
 		
 		return $publictouserid;
 

@@ -53,8 +53,17 @@ define('LDAP_USER_BASEDN','dc=example,dc=com');
 // LDAP filter to search user
 define('LDAP_USER_FILTER','(&(objectClass=posixAccount)(uid=%s))');
 
+// LDAP filter to search user by publicname
+define('LDAP_USER_FILTER_BY_PUBLIC_NAME','(&(objectClass=posixAccount)(cn=%s))');
+
+// LDAP login attribute
+define('LDAP_USERID_ATTR','uid');
+
 // LDAP mail attribute
 define('LDAP_MAIL_ATTR','mail');
 
 // LDAP mail alternative attribute
 define('LDAP_ALTERNATE_MAIL_ATTR','supannMailPerso');
+
+// LDAP public name attribute
+define('LDAP_PUBLIC_NAME_ATTR','cn');
