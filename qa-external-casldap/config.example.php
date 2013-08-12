@@ -50,11 +50,11 @@ define('LDAP_SERVER','ldap.exemple.com');
 // LDAP basedn to search user
 define('LDAP_USER_BASEDN','dc=example,dc=com');
 
-// LDAP filter to search user
-define('LDAP_USER_FILTER','(&(objectClass=posixAccount)(uid=%s))');
+// LDAP filter to search user (compose with %%user%% pattern replace by userid)
+define('LDAP_USER_FILTER','(&(objectClass=posixAccount)(|(uid=%%user%%)(mail=%%user%%)))');
 
-// LDAP filter to search user by publicname
-define('LDAP_USER_FILTER_BY_PUBLIC_NAME','(&(objectClass=posixAccount)(cn=%s))');
+// LDAP filter to search user by publicname (compose with %%user%% pattern replace by publicname)
+define('LDAP_USER_FILTER_BY_PUBLIC_NAME','(&(objectClass=posixAccount)(|(cn=%%user%%)(displayname=%%user%%)))');
 
 // LDAP login attribute
 define('LDAP_USERID_ATTR','uid');

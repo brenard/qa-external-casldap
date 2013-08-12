@@ -56,7 +56,8 @@
 	
 		try {
 			$con=ldap_connect(LDAP_SERVER);
-			$filter=sprintf(LDAP_USER_FILTER,$user);
+			$filter=str_replace('%s',$user,LDAP_USER_FILTER);
+			$filter=str_replace('%%user%%',$user,$filter);
 			$attrs=array(LDAP_MAIL_ATTR,LDAP_PUBLIC_NAME_ATTR,LDAP_USERID_ATTR);
 			if (constant('LDAP_ALTERNATE_MAIL_ATTR') != '') {
 				$attrs[]=LDAP_ALTERNATE_MAIL_ATTR;
@@ -90,7 +91,8 @@
 		$userid=NULL;
 		try {
 			$con=ldap_connect(LDAP_SERVER);
-			$filter=sprintf(LDAP_USER_FILTER_BY_PUBLIC_NAME,$publicname);
+			$filter=str_replace('%s',$publicname,LDAP_USER_FILTER_BY_PUBLIC_NAME);
+			$filter=str_replace('%%user%%',$publicname,$filter);
 			$attrs=array(LDAP_USERID_ATTR);
 			$res=ldap_search($con,LDAP_USER_BASEDN,$filter,$attrs);
 			$uinfos=ldap_get_entries($con,$res);
