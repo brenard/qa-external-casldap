@@ -46,12 +46,12 @@
 			'userid'		=> $user,
 			'publicusername'	=> $user,
 		);
-		global $CAS_ADMIN_USERS;
-		if (in_array($user,$CAS_ADMIN_USERS)) {
-			$infos['level'] = QA_USER_LEVEL_SUPER;
+		global $CAS_USERS_ROLE;
+		if (isset($CAS_USERS_ROLE[$user])) {
+			$infos['level'] = $CAS_USERS_ROLE[$user];
 		}
 		else {
-			$infos['level'] = QA_USER_LEVEL_BASIC;
+			$infos['level'] = CAS_DEFAULT_USER_ROLE;
 		}
 	
 		try {

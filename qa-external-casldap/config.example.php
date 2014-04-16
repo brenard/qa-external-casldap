@@ -34,11 +34,15 @@ define('CAS_VER',CAS_VERSION_2_0);
 // If empty, CAS server's certificate will not be validated.
 define('CAS_CA_CERT_FILE','');
 
-// List of admin user login
-$CAS_ADMIN_USERS=array(
-	'qauser1',
-	'qauser2',
+// List user's role
+// Roles : QA_USER_LEVEL_BASIC, QA_USER_LEVEL_EDITOR, QA_USER_LEVEL_ADMIN, QA_USER_LEVEL_SUPER
+$CAS_USERS_ROLE=array(
+	'qauser1' => QA_USER_LEVEL_SUPER,
+	'qauser2' => QA_USER_LEVEL_EDITOR,
 );
+
+// CAS default user role
+define('CAS_DEFAULT_USER_ROLE',QA_USER_LEVEL_BASIC);
 
 /*
  * LDAP Configuration
