@@ -16,7 +16,8 @@ Configuration
   * **CAS_CTX** : URL context path of CAS server (ex: /cas)
   * **CAS_VER** : CAS protocol version. Possible values :  *CAS_VERSION_1_0* or *CAS_VERSION_2_0*
   * **CAS_CA_CERT_FILE** : SSL certificate path of CAS server. If empty, the SSL certificate will not be validated.
-  * **$CAS_ADMIN_USERS** : PHP array listing admin user logins (ex : _array('user1','user2')_)
+  * **$CAS_USERS_ROLE** : PHP array listing specific user role. Users's role must be define using Q2A constant : _QA_USER_LEVEL_BASIC, QA_USER_LEVEL_EDITOR, QA_USER_LEVEL_ADMIN, QA_USER_LEVEL_SUPER_ (ex : _array('user1' => QA_USER_LEVEL_SUPER,'user2' => QA_USER_LEVEL_EDITOR)_)
+  * **CAS_DEFAULT_USER_ROLE** : User default role define using Q2A constant (see _$CAS_USERS_ROLE_)
   * **LDAP_SERVER** : Hostname or IP address of LDAP server (ex: _ldap.example.com_)
   * **LDAP_USER_BASEDN** : basedn to search user in LDAP directory (ex: _dc=example,dc=com_)
   * **LDAP_USER_FILTER** : LDAP filter to search user in LDAP directory. The filter will be composed with user CAS login (remplace by **%s**). (ex: _(&(objectClass=posixAccount)(uid=%s))_)
