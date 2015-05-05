@@ -51,6 +51,13 @@ define('CAS_DEFAULT_USER_ROLE',QA_USER_LEVEL_BASIC);
 // LDAP server hostname (or IP address)
 define('LDAP_SERVER','ldap.exemple.com');
 
+// LDAP server hostname (port)
+define('LDAP_SERVER_PORT', 389);
+
+// LDAP Authentification
+define('LDAP_SERVER_LOGIN', 'CN=login');
+define('LDAP_SERVER_PASSWORD', 'password!');
+
 // LDAP basedn to search user
 define('LDAP_USER_BASEDN','dc=example,dc=com');
 
