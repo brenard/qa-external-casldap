@@ -55,15 +55,17 @@
 		}
 	
 		try {
-			$con=ldap_connect(LDAP_SERVER_HOST, LDAP_SERVER_PORT);
+			$con=ldap_connect(LDAP_SERVER_URI);
 			ldap_set_option($con,LDAP_OPT_PROTOCOL_VERSION,3);
 			ldap_set_option($con,LDAP_OPT_REFERRALS,0);
 			if (!$con) {
-				throw new Exception('Connexion LDAP impossible: '.LDAP_SERVER_HOST.':'.LDAP_SERVER_PORT);
+				throw new Exception('LDAP Could not connect to: '.LDAP_SERVER_URI);
 			}
-			$ldapbind = ldap_bind($con, LDAP_SERVER_LOGIN, LDAP_SERVER_PASSWORD);
-			if (!$ldapbind) {
-				throw new Exception('Authentification LDAP impossible.');
+			if (LDAP_SERVER_BIND_DN != '') {
+				$ldapbind = ldap_bind($con, LDAP_SERVER_BIND_DN, LDAP_SERVER_BIND_PASSWORD);
+				if (!$ldapbind) {
+					throw new Exception('LDAP bind failed ! Check LDAP_SERVER_BIND_DN and LDAP_SERVER_BIND_PASSWORD.');
+				}
 			}
 			$filter=str_replace('%s',$user,LDAP_USER_FILTER);
 			$filter=str_replace('%%user%%',$user,$filter);
