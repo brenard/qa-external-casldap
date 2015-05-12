@@ -59,7 +59,7 @@
 			ldap_set_option($con,LDAP_OPT_PROTOCOL_VERSION,3);
 			ldap_set_option($con,LDAP_OPT_REFERRALS,0);
 			if (!$con) {
-				throw new Exception('LDAP Could not connect to: '.LDAP_SERVER_URI);
+				throw new Exception('Fail to connect to LDAP server : '.LDAP_SERVER_URI);
 			}
 			if (LDAP_SERVER_BIND_DN != '') {
 				$ldapbind = ldap_bind($con, LDAP_SERVER_BIND_DN, LDAP_SERVER_BIND_PASSWORD);
@@ -105,7 +105,7 @@
 			ldap_set_option($con,LDAP_OPT_PROTOCOL_VERSION,3);
 			ldap_set_option($con,LDAP_OPT_REFERRALS,0);
 			if (!$con) {
-				throw new Exception('LDAP Could not connect to: '.LDAP_SERVER_URI);
+				throw new Exception('Fail to connect to LDAP server : '.LDAP_SERVER_URI);
 			}
 			if (LDAP_SERVER_BIND_DN != '') {
 				$ldapbind = ldap_bind($con, LDAP_SERVER_BIND_DN, LDAP_SERVER_BIND_PASSWORD);

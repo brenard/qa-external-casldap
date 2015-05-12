@@ -30,7 +30,9 @@ Configuration
 	    );
  
   * **CAS_DEFAULT_USER_ROLE** : User default role define using Q2A constant (see _$CAS_USERS_ROLE_)
-  * **LDAP_SERVER** : Hostname or IP address of LDAP server (ex: _ldap.example.com_)
+  * **LDAP_SERVER_URI** : LDAP server URI (ex: _ldap://ldap.example.com:389_)
+  * **LDAP_SERVER_BIND_DN** : LDAP server bind DN (ex: _uid=qa,ou=sysaccouts,o=example_). This parameter is optional and if is empty, no bind will be done
+  * **LDAP_SERVER_BIND_PASSWORD** : LDAP server bind password
   * **LDAP_USER_BASEDN** : basedn to search user in LDAP directory (ex: _dc=example,dc=com_)
   * **LDAP_USER_FILTER** : LDAP filter to search user in LDAP directory. The filter will be composed with user CAS login (remplace by **%s**). (ex: _(&(objectClass=posixAccount)(uid=%s))_)
   * **LDAP_USERID_ATTR** : LDAP attribute corresponding to CAS user login (ex: *uid*)
