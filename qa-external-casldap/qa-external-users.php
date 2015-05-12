@@ -55,7 +55,18 @@
 		}
 	
 		try {
-			$con=ldap_connect(LDAP_SERVER);
+			$con=ldap_connect(LDAP_SERVER_URI);
+			ldap_set_option($con,LDAP_OPT_PROTOCOL_VERSION,3);
+			ldap_set_option($con,LDAP_OPT_REFERRALS,0);
+			if (!$con) {
+				throw new Exception('LDAP Could not connect to: '.LDAP_SERVER_URI);
+			}
+			if (LDAP_SERVER_BIND_DN != '') {
+				$ldapbind = ldap_bind($con, LDAP_SERVER_BIND_DN, LDAP_SERVER_BIND_PASSWORD);
+				if (!$ldapbind) {
+					throw new Exception('LDAP bind failed ! Check LDAP_SERVER_BIND_DN and LDAP_SERVER_BIND_PASSWORD.');
+				}
+			}
 			$filter=str_replace('%s',$user,LDAP_USER_FILTER);
 			$filter=str_replace('%%user%%',$user,$filter);
 			$attrs=array(LDAP_MAIL_ATTR,LDAP_PUBLIC_NAME_ATTR,LDAP_USERID_ATTR);
@@ -90,7 +101,18 @@
 	function get_ldap_userid_by_publicname($publicname) {
 		$userid=NULL;
 		try {
-			$con=ldap_connect(LDAP_SERVER);
+			$con=ldap_connect(LDAP_SERVER_URI);
+			ldap_set_option($con,LDAP_OPT_PROTOCOL_VERSION,3);
+			ldap_set_option($con,LDAP_OPT_REFERRALS,0);
+			if (!$con) {
+				throw new Exception('LDAP Could not connect to: '.LDAP_SERVER_URI);
+			}
+			if (LDAP_SERVER_BIND_DN != '') {
+				$ldapbind = ldap_bind($con, LDAP_SERVER_BIND_DN, LDAP_SERVER_BIND_PASSWORD);
+				if (!$ldapbind) {
+					throw new Exception('LDAP bind failed ! Check LDAP_SERVER_BIND_DN and LDAP_SERVER_BIND_PASSWORD.');
+				}
+			}
 			$filter=str_replace('%s',$publicname,LDAP_USER_FILTER_BY_PUBLIC_NAME);
 			$filter=str_replace('%%user%%',$publicname,$filter);
 			$attrs=array(LDAP_USERID_ATTR);
@@ -204,7 +226,7 @@
 */
 	{
 
-		$infos=get_ldap_user_infos($user);
+		$infos=get_ldap_user_infos($userid);
 		return (isset($infos['email'])?$infos['email']:null);
 
 	}

@@ -48,8 +48,14 @@ define('CAS_DEFAULT_USER_ROLE',QA_USER_LEVEL_BASIC);
  * LDAP Configuration
  */
 
-// LDAP server hostname (or IP address)
-define('LDAP_SERVER','ldap.exemple.com');
+// LDAP URI (Ex : ldap://ldapserver:389). 
+// Moreover, this constant permit to configure LDAPS connection using URI ldaps://ldapserver:636.
+define('LDAP_SERVER_URI','ldap://ldap.exemple.com:389');
+
+// LDAP Authentification
+// Anonymous connection when LDAP_SERVER_BIND_DN is empty (no ldap_bind)
+define('LDAP_SERVER_BIND_DN', '');
+define('LDAP_SERVER_BIND_PASSWORD', '');
 
 // LDAP basedn to search user
 define('LDAP_USER_BASEDN','dc=example,dc=com');
